@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 class Node:
     
     # Function to initialize the node object
@@ -113,11 +115,31 @@ class LinkedList:
 
     # Delete node at the given position
     def delete_from_pos(self, pos):
-        print("todo")
+        if self.head == None:
+            print("self.head == None!")
+            return
+        
+        if pos < 0:
+            pos = 0
+
+        curr = self.head
+        prev = None
+
+        while (curr.next and pos > 0):
+            prev = curr
+            curr = curr.next
+            pos = pos - 1
+        
+        if curr == self.head:
+            self.head = curr.next
+        else:
+            prev.next = curr.next
 
     # Delete the full list
     def delete_list(self):
-        print("todo")
+        while (self.head):
+            self.head = self.head.next
+
 
 class LinkedListTest:
 
@@ -143,6 +165,7 @@ class LinkedListTest:
         my_list.traverse()
 
     def test_add_at_pos(self):
+        print("test_add_at_pos")
         my_list = LinkedList()
         my_list.add_at_pos(2, 1)
         my_list.add_at_pos(0, 2)
@@ -162,6 +185,7 @@ class LinkedListTest:
         my_list.traverse()
 
     def test_delete_first(self):
+        print("test_delete_first")
         my_list = LinkedList()
 
         my_list.append(1)
@@ -176,6 +200,7 @@ class LinkedListTest:
         my_list.traverse() # Print empty list
 
     def test_delete_given_value(self):
+        print("test_delete_given_value")
         my_list = LinkedList()
 
         my_list.append(1)
@@ -193,21 +218,37 @@ class LinkedListTest:
         my_list.traverse()
 
     def test_delete_from_pos(self):
-        print("todo")
+        print("test_delete_from_pos")
+        my_list = LinkedList()
+
+        my_list.append(1)
+        my_list.append(2)
+        my_list.append(3)
+        my_list.traverse()
+        my_list.delete_from_pos(1)
+        my_list.traverse()
 
     def test_delete_list(self):
-        print("todo")
+        print("test_delete_list")
+        my_list = LinkedList()
+
+        my_list.append(1)
+        my_list.append(2)
+        my_list.append(3)
+        my_list.traverse()
+        my_list.delete_list()
+        my_list.traverse()
 
 def main():
     test_list = LinkedListTest()
-    # test_list.test_append()
-    # test_list.test_delete_last()
-    # test_list.test_add_to_start()
-    # test_list.test_add_at_pos()
-    # test_list.test_delete_first()
+    test_list.test_append()
+    test_list.test_delete_last()
+    test_list.test_add_to_start()
+    test_list.test_add_at_pos()
+    test_list.test_delete_first()
     test_list.test_delete_given_value()
-    
-    
+    test_list.test_delete_from_pos()
+    test_list.test_delete_list()
 
 if __name__ == "__main__":
     main()
