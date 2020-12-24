@@ -161,6 +161,58 @@ class LinkedList:
         
         return 1 + self._length_list_recursive(head.next)
 
+    def search(self, data):
+        curr = self.head
+
+        while curr:
+            if curr.data == data:
+                return True
+            else:
+                curr = curr.next
+        
+        return False
+    
+    def search_recursive(self, data):
+        return self._search_recursive(self.head, data)
+
+    def _search_recursive(self, head, data):
+        if head == None:
+            return False
+
+        if head.data == data:
+            return True
+
+        return self._search_recursive(head.next, data)
+
+    def get_nth_from_last(self, n):
+        '''
+        Use two pointers, `ref` and `main`. Start both at head node. 
+        Move `ref` ahead to nth pos (starting pos = 1). Move both pointers ahead till ref reaches the last node.
+        return node pointed by main
+        check for out of bound lengths
+        '''
+        ref = self.head
+        main = self.head
+
+        if n <= 0:
+            print("Err: n <= 0; n must be between 1 and len(list)")
+            return None
+
+        while (ref and n > 0):
+            ref = ref.next
+            n = n - 1
+
+        if (ref == None and n > 0):
+            print("Err: n > len(list); n must be between 1 and len(list)")
+            return None
+        
+        # move ahead till ref reaches the last node
+        while ref:
+            ref = ref.next
+            main = main.next
+
+        return main.data
+
 class LinkedListTest:
 
     def __init__(self):
@@ -276,20 +328,44 @@ class LinkedListTest:
         my_list.add_to_start(3)
         print("len = ", my_list.length_list_recursive())
 
-    
+    def test_search(self):
+        print("test_search")
+        my_list = LinkedList()
+        my_list.add_to_start(1)
+        my_list.add_to_start(2)
+        my_list.add_to_start(3)
+        print("list.search(3): ", my_list.search(3))
+        print("list.search(4): ", my_list.search(4))
+        print("list.search_recursive(3): ", my_list.search_recursive(3))
+        print("list.search_recursive(4): ", my_list.search_recursive(4))
+
+    def test_get_nth_from_last(self):
+        print("test_get_nth_from_last")
+        my_list = LinkedList()
+        my_list.add_to_start(3)
+        my_list.add_to_start(2)
+        my_list.add_to_start(1)
+        print("list.get_nth_from_last(1) = ", my_list.get_nth_from_last(0))
+        print("list.get_nth_from_last(1) = ", my_list.get_nth_from_last(1))
+        print("list.get_nth_from_last(2) = ", my_list.get_nth_from_last(2))
+        print("list.get_nth_from_last(3) = ", my_list.get_nth_from_last(3))
+        print("list.get_nth_from_last(4) = ", my_list.get_nth_from_last(4))
+
 
 def main():
     test_list = LinkedListTest()
-    test_list.test_append()
-    test_list.test_delete_last()
-    test_list.test_add_to_start()
-    test_list.test_add_at_pos()
-    test_list.test_delete_first()
-    test_list.test_delete_given_value()
-    test_list.test_delete_from_pos()
-    test_list.test_delete_list()
-    test_list.test_length_list()
-    test_list.test_length_list_recursive()
+    # test_list.test_append()
+    # test_list.test_delete_last()
+    # test_list.test_add_to_start()
+    # test_list.test_add_at_pos()
+    # test_list.test_delete_first()
+    # test_list.test_delete_given_value()
+    # test_list.test_delete_from_pos()
+    # test_list.test_delete_list()
+    # test_list.test_length_list()
+    # test_list.test_length_list_recursive()
+    # test_list.test_search()
+    test_list.test_get_nth_from_last()
 
 if __name__ == "__main__":
     main()
