@@ -140,6 +140,26 @@ class LinkedList:
         while (self.head):
             self.head = self.head.next
 
+    def length_list(self):
+        len = 0
+        curr = self.head
+
+        while (curr):
+            curr = curr.next
+            len = len + 1
+        
+        return len
+    
+    def length_list_recursive(self):
+        return self._length_list_recursive(self.head)
+    
+    def _length_list_recursive(self, head):
+        if head == None:
+            return 0
+        if head.next == None:
+            return 1
+        
+        return 1 + self._length_list_recursive(head.next)
 
 class LinkedListTest:
 
@@ -239,6 +259,25 @@ class LinkedListTest:
         my_list.delete_list()
         my_list.traverse()
 
+    def test_length_list(self):
+        print("test_length_list")
+        my_list = LinkedList()
+        my_list.add_to_start(1)
+        my_list.add_to_start(2)
+        my_list.add_to_start(3)
+        len = my_list.length_list()
+        print("len = ", len)
+
+    def test_length_list_recursive(self):
+        print("test_length_list_recursive")
+        my_list = LinkedList()
+        my_list.add_to_start(1)
+        my_list.add_to_start(2)
+        my_list.add_to_start(3)
+        print("len = ", my_list.length_list_recursive())
+
+    
+
 def main():
     test_list = LinkedListTest()
     test_list.test_append()
@@ -249,6 +288,8 @@ def main():
     test_list.test_delete_given_value()
     test_list.test_delete_from_pos()
     test_list.test_delete_list()
+    test_list.test_length_list()
+    test_list.test_length_list_recursive()
 
 if __name__ == "__main__":
     main()
